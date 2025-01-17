@@ -1,9 +1,17 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SetupCompany = () => {
+
+
+  const singleCompany = useSelector((state)=>state.company.singleCompany);
+
+  console.log("singlecom : ",singleCompany.name);
+  
+
   const {
     register,
     handleSubmit,
@@ -28,21 +36,21 @@ const SetupCompany = () => {
       console.log("formdata", formData);
       
 
-    //   const response = await axios.post(
-    //     "http://localhost:8000/api/v1/company/register",
-    //     formData,
-    //     {
-    //       headers: { "Content-Type": "multipart/form-data" },
-    //     }
-    //   );
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/company/update`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
-    //   if (response.data.success) {
-    //     toast.success(response.data.message);
-    //     reset();
-    //     navigate("/companies");
-    //   } else {
-    //     toast.error(response.data.message);
-    //   }
+      if (response.data.success) {
+        toast.success(response.data.message);
+        reset();
+        navigate("/companies");
+      } else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
       toast.error("An error occurred while registering the company!");
       console.error(error);
@@ -61,6 +69,7 @@ const SetupCompany = () => {
             </label>
             <input
               type="text"
+              defaultValue={singleCompany.name}
               id="name"
               className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               {...register("name", { required: "Company Name is required" })}
