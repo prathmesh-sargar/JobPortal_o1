@@ -1,38 +1,35 @@
-import  { useState } from "react";
+import  { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
+import { useDispatch, useSelector } from "react-redux";
+import { getCompanies } from "../../redux/companySlice";
 
 const Companies = () => {
   // Mock data for companies
-  const [companies] = useState([
-    {
-      id: 1,
-      logo: "https://via.placeholder.com/40",
-      name: "TechCorp",
-      date: "2025-01-01",
-      description: "A leading technology solutions provider.",
-    },
-    {
-      id: 2,
-      logo: "https://via.placeholder.com/40",
-      name: "Innovate Inc",
-      date: "2025-01-05",
-      description: "Innovative solutions for modern businesses.",
-    },
-    {
-      id: 3,
-      logo: "https://via.placeholder.com/40",
-      name: "DataWorks",
-      date: "2025-01-10",
-      description: "Specializing in data analytics and AI.",
-    },
-  ]);
+
+  const dispatch = useDispatch();
+
+  const companies = useSelector((state)=>state.company.companies)
+
+  useEffect(()=>{
+
+    const getAllCompnies = async()=>{
+      try {
+
+        const res = await axios.get("http://localhost:8000/api/v1/company/get",{withCredentials: true})
+        console.log(res.data.companies);
+        dispatch(getCompanies(res?.data?.companies));
+        
+      } catch (error) {
+        console.log(error);
+  
+      }
+    }
+    getAllCompnies();
+  },[dispatch])
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Filter companies based on search term
-  const filteredCompanies = companies.filter((company) =>
-    company.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -67,8 +64,8 @@ const Companies = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredCompanies.length > 0 ? (
-                filteredCompanies.map((company) => (
+              {companies.length > 0 ? (
+                companies.map((company) => (
                   <tr key={company.id} className="hover:bg-gray-100">
                     <td className="border border-gray-300 p-3">
                       <img
@@ -78,7 +75,7 @@ const Companies = () => {
                       />
                     </td>
                     <td className="border border-gray-300 p-3">{company.name}</td>
-                    <td className="border border-gray-300 p-3">{company.date}</td>
+                    <td className="border border-gray-300 p-3">{company.createdAt.toString().split('T')[0]}</td>
                     <td className="border border-gray-300 p-3">{company.description}</td>
                   </tr>
                 ))
