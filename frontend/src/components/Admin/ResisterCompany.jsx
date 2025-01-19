@@ -28,7 +28,7 @@ const ResisterCompany = () => {
       // Add functionality to save the company
 
       setCompanyName("");
-      navigate("/company/setup");
+      navigate(`/company/setup/${res?.data?.company?._id}`);
     } catch (error) {
       console.log(error);
     }

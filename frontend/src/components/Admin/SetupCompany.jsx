@@ -2,11 +2,17 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SetupCompany = () => {
 
+  const navigate = useNavigate();
 
+  const params = useParams();
+
+ const  companyId = params.id;
+ console.log(companyId);
+ 
   const singleCompany = useSelector((state)=>state.company.singleCompany);
 
   console.log("singlecom : ",singleCompany.name);
@@ -15,7 +21,7 @@ const SetupCompany = () => {
   const {
     register,
     handleSubmit,
-    // reset,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -30,15 +36,16 @@ const SetupCompany = () => {
       formData.append("location", data.location);
       formData.append("website", data.website);
       formData.append("description", data.description);
-      formData.append("logo", data.logo[0]);
+      formData.append("file", data?.logo[0]);
 
 
       console.log("formdata", formData);
       
 
-      const response = await axios.post(
-        `http://localhost:8000/api/v1/company/update`,
+      const response = await axios.put(
+        `http://localhost:8000/api/v1/company/update/${companyId}`,
         formData,
+        {withCredentials : true},
         {
           headers: { "Content-Type": "multipart/form-data" },
         }
@@ -47,7 +54,7 @@ const SetupCompany = () => {
       if (response.data.success) {
         toast.success(response.data.message);
         reset();
-        navigate("/companies");
+        navigate("/admin/companies");
       } else {
         toast.error(response.data.message);
       }
@@ -135,6 +142,7 @@ const SetupCompany = () => {
             <input
               type="file"
               id="logo"
+              accept="image/*"
               className="w-full px-4 py-2 border rounded-lg shadow-sm"
               {...register("logo", { required: "Company Logo is required" })}
             />

@@ -32,7 +32,7 @@ function App() {
         {/* admin */}
         <Route path="/admin/companies" element={<Companies/>}/>
         <Route path="/company/create" element={<ResisterCompany/>}/>
-        <Route path="/company/setup" element={<SetupCompany/>}/>
+        <Route path="/company/setup/:id" element={<SetupCompany/>}/>
 
       </Routes>
      </Router>
