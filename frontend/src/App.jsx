@@ -13,6 +13,7 @@ import Jobdetails from "./components/Jobdetails";
 import Companies from "./components/Admin/Companies";
 import ResisterCompany from "./components/Admin/ResisterCompany";
 import SetupCompany from "./components/Admin/SetupCompany";
+import AdminJobs from "./components/Admin/Adminjobs";
 function App() {
 
   return (
@@ -31,8 +32,10 @@ function App() {
         <Route path="jobs/description/:id" element={<Jobdetails/>}/>
         {/* admin */}
         <Route path="/admin/companies" element={<Companies/>}/>
+        <Route path="/admin/jobs" element={<AdminJobs/>}/>
         <Route path="/company/create" element={<ResisterCompany/>}/>
         <Route path="/company/setup/:id" element={<SetupCompany/>}/>
+        
 
       </Routes>
      </Router>

@@ -12,15 +12,14 @@ import { useNavigate } from "react-router-dom"
 const Home = () => {
 
   const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-
-  useEffect(()=>{
-    if(user?.profile?.role === 'recruiter'){
+   useEffect(()=>{   
+    if(user?.role === 'recruiter'){
       navigate("/admin/companies");
     }
-},[navigate, user?.profile?.role]);
+},[navigate, user?.role]);
 
 
   useEffect(() => {

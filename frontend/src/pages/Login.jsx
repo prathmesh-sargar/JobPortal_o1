@@ -31,10 +31,10 @@ const navigate = useNavigate();
         navigate("/");
       } else {
         console.log(response.data.message);
-        toast.error(response.data.message);
+        toast.error(errors.response.data.message);
       }
     } catch (error) {
-      toast.error("An error occurred while logging in!");
+      toast.error(error.response.data.message);
       console.error(error);
     }
   };

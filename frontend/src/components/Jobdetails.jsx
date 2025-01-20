@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
 const Jobdetails = () => {
@@ -10,6 +11,22 @@ const Jobdetails = () => {
     const params = useParams();
     const jobId = params.id;
     // console.log(jobId);
+
+  const applyJobHandler = async()=>{
+    try {
+      const res = await axios.get(`http://localhost:8000/api/v1/application/apply/${jobId}`,{withCredentials: true});
+      if(res.data.success){
+         toast.success(res.data.message);
+      }
+
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+      
+    }
+  }
+
+
 
     useEffect(() => {
       const fetchJobDetails = async () => {
@@ -115,7 +132,7 @@ const Jobdetails = () => {
           <div className="mt-6">
             <button
               className="w-full md:w-auto bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-300"
-              onClick={() => alert("You have applied for this job!")}
+              onClick={applyJobHandler}
             >
               Apply Now
             </button>

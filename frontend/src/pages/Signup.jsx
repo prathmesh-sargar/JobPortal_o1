@@ -36,11 +36,11 @@ const Signup = () => {
         toast.success(response.data.message);
         navigate("/login");
       } else {
-        toast.error(response.data.message);
+        toast.error(errors.response.data.message);
       }
     } catch (error) {
       toast.error("An error occurred while registering!");
-      console.error(error);
+      toast.error(error.response.data.message);
     }
   };
 

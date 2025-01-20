@@ -42,7 +42,7 @@ const Navbar = () => {
               </div>
               
               <div>
-                <Link to={"/jobs"}>Jobs</Link>
+                <Link to={"/admin/jobs"}>Jobs</Link>
               </div>
             </>
           ) : (
