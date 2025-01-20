@@ -1,36 +1,32 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getadminjob } from "../../redux/jobSlice.js";
 
 const AdminJobs = () => {
 
-    const [adminjob ,setAdminJobs] = useState([]);
+
+    const dispatch = useDispatch();
+    const adminjob = useSelector((state)=>state.jobs.adminjob);
+
 
 
 
     useEffect(()=>{
 
         const getAllAdminJobs = async()=>{
+
             try {
-                const res = await axios.get(`http://localhost:8000/api/v1/job/getadminjobs`,{withCredentials: true});
+                const res = await axios.get("http://localhost:8000/api/v1/job/getadminjobs",{withCredentials: true});
                 // console.log(res.data.jobs);
-                setAdminJobs(res.data.jobs);
+                dispatch(getadminjob(res.data.jobs));
             } catch (error) {
                 console.log(error);   
             }
         }
         getAllAdminJobs()
 
-    },[])
-
-    console.log("adminjob :",adminjob);
-    
-
-  // Hardcoded job data
-  const jobs = [
-    { id: 1, companyName: `${adminjob?.company?.name}`, role: "Software Engineer", date: "2025-01-15" },
-    { id: 2, companyName: "Microsoft", role: "Frontend Developer", date: "2025-01-18" },
-    { id: 3, companyName: "Amazon", role: "Backend Developer", date: "2025-01-20" },
-  ];
+    },[dispatch])
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -55,11 +51,11 @@ const AdminJobs = () => {
               </tr>
             </thead>
             <tbody>
-              {jobs.map((job) => (
-                <tr key={job.id} className="hover:bg-gray-100">
-                  <td className="px-4 py-2 border">{job.companyName}</td>
-                  <td className="px-4 py-2 border">{job.role}</td>
-                  <td className="px-4 py-2 border">{job.date}</td>
+              {adminjob.map((job) => (
+                <tr key={job._id} className="hover:bg-gray-100">
+                  <td className="px-4 py-2 border">{job?.company?.name}</td>
+                  <td className="px-4 py-2 border">{job.title}</td>
+                  <td className="px-4 py-2 border">{job?.updatedAt.toString().split('T')[0]}</td>
                   <td className="px-4 py-2 border">
                     <button className="text-blue-600 hover:text-blue-800 mr-4">
                       Edit

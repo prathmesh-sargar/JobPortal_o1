@@ -17,7 +17,7 @@ const Companies = () => {
       try {
 
         const res = await axios.get("http://localhost:8000/api/v1/company/get",{withCredentials: true})
-        console.log(res.data.companies);
+        // console.log(res.data.companies);
         dispatch(getCompanies(res?.data?.companies));
         
       } catch (error) {
@@ -66,7 +66,7 @@ const Companies = () => {
             <tbody>
               {companies.length > 0 ? (
                 companies.map((company) => (
-                  <tr key={company.id} className="hover:bg-gray-100">
+                  <tr key={company._id} className="hover:bg-gray-100">
                     <td className="border border-gray-300 p-3">
                       <img
                         src={company.logo}
