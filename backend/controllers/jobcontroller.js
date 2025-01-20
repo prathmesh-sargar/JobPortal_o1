@@ -63,7 +63,7 @@ export  const getAllJob = async(req,res)=>{
             ]
           };
         const jobs = await Job.find().populate({
-          path:"company"
+          path:'company'
         }).sort({createdAt: -1})
 
         if(!jobs){
@@ -113,7 +113,9 @@ export const getJobById = async (req, res) => {
 export const getAdminJobs = async(req,res)=>{
     try {
          const AdminId = req.id;
-         const jobs = await Job.find({create_by: AdminId});
+         const jobs = await Job.find({create_by: AdminId}).populate({
+          path:'company'
+         });
          if(!jobs){
             return res.status(404).json({
                 message: "Jobs not found",
