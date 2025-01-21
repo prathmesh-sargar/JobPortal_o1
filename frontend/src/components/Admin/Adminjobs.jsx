@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getadminjob } from "../../redux/jobSlice.js";
+import { Link } from "react-router-dom";
 
 const AdminJobs = () => {
 
@@ -34,9 +35,9 @@ const AdminJobs = () => {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800">Admin Job Table</h2>
-          <button className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">
+          <Link to={"/admin/postjob"}><button className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">
             Add Job
-          </button>
+          </button></Link>
         </div>
 
         {/* Table */}
