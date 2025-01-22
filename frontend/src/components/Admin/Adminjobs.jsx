@@ -58,9 +58,9 @@ const AdminJobs = () => {
                   <td className="px-4 py-2 border">{job.title}</td>
                   <td className="px-4 py-2 border">{job?.updatedAt.toString().split('T')[0]}</td>
                   <td className="px-4 py-2 border">
-                    <button className="text-blue-600 hover:text-blue-800 mr-4">
-                      Edit
-                    </button>
+                   <Link to={`/admin/job/${job?._id}/applicants`}><button className="text-blue-600 hover:text-blue-800 mr-4">
+                      Applicants
+                    </button></Link>
                     <button className="text-red-600 hover:text-red-800">
                       Delete
                     </button>

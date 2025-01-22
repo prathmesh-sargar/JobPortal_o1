@@ -33,7 +33,7 @@ const JobsPage = () => {
          <div className="flex gap-1">
          <div className="flex  mb-4">
             <img
-              src="https://via.placeholder.com/100" // Replace with your logo URL
+              src={data?.company?.logo} // Replace with your logo URL
               alt="Company Logo"
               className="w-[50px] h-[50px] rounded-xl"
             />

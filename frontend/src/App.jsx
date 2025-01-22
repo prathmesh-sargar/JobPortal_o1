@@ -15,6 +15,7 @@ import ResisterCompany from "./components/Admin/ResisterCompany";
 import SetupCompany from "./components/Admin/SetupCompany";
 import AdminJobs from "./components/Admin/Adminjobs";
 import PostJob from "./components/Admin/PostJob";
+import Applicants from "./components/Admin/Applicants";
 function App() {
 
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/company/create" element={<ResisterCompany/>}/>
         <Route path="/company/setup/:id" element={<SetupCompany/>}/>
         <Route path="/admin/postjob" element={<PostJob/>}/>
+        <Route path="/admin/job/:id/applicants" element={<Applicants/>}/>
         
 
       </Routes>
