@@ -1,37 +1,37 @@
 
-import { useSelector } from "react-redux";
+import axios from "axios";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { setAppliedJobs } from "../redux/authSlice";
 
 const ProfilePage = () => {
 
+  const dispatch = useDispatch();
    
     const user = useSelector((state) => state.auth.user);
-    // console.log("profile data : ",userdata);
+    const appliedjobs = useSelector((state)=>state.auth.appliedJobs)
+    // console.log(appliedjobs);
     
 
-//   console.log(user.profile.skills);
-  
-//  const skillArray =   user?.profile?.skills
-//  console.log("skillarray", skillArray);
  
+    useEffect(()=>{
+      const getAllAppliedJobs = async()=>{
+        try {
+          const res = await axios.get("http://localhost:8000/api/v1/application/get",{withCredentials: true});
+          if(res.data.success){
+            // console.log(res.data.application);
+            dispatch(setAppliedJobs(res.data.application))
 
-  const userdata = {
-    appliedJobs: [
-      {
-        date: "17-07-2024",
-        role: "Frontend Developer",
-        company: "Google",
-        status: "Selected",
-      },
-      {
-        date: "17-07-2024",
-        role: "Frontend Developer",
-        company: "Google",
-        status: "Selected",
-      },
-    ],
-
-  };
+            
+          }
+        } catch (error) {
+          console.log(error);
+          
+        }
+      }
+      getAllAppliedJobs();
+    },[dispatch])
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
@@ -131,13 +131,13 @@ const ProfilePage = () => {
               </tr>
             </thead>
             <tbody>
-              {userdata.appliedJobs.map((job, index) => (
+              {appliedjobs.map((job, index) => (
                 <tr key={index} className="border-b">
-                  <td className="py-2 px-4 text-sm text-gray-600">{job.date}</td>
-                  <td className="py-2 px-4 text-sm text-gray-600">{job.role}</td>
-                  <td className="py-2 px-4 text-sm text-gray-600">{job.company}</td>
-                  <td className="py-2 px-4 text-sm text-indigo-600 font-semibold">
-                    {job.status}
+                  <td className="py-2 px-4 text-sm text-gray-600">{job?.updatedAt.toString().split('T')[0]}</td>
+                  <td className="py-2 px-4 text-sm text-gray-600">{job?.job.title}</td>
+                  <td className="py-2 px-4 text-sm text-gray-600">{job?.job.company.name}</td>
+                  <td className="font-bold">
+                   <span className={`py-2 px-4 text-sm  ${job?.status == "accepted" ? "bg-green-300": "bg-red-300 "}  font-semibold rounded-xl`} > {job?.status}</span>
                   </td>
                 </tr>
               ))}
