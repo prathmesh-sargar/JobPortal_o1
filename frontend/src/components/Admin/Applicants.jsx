@@ -1,13 +1,32 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setApplicants } from "../../redux/applicants";
+import toast from "react-hot-toast";
 
 const Applicants = () => {
 
+
+
+    const HandleStatus = async(status,applicantID)=>{
+        try {
+            const res = await axios.post(`http://localhost:8000/api/v1/application/status/${applicantID}/update`,{status: status},{withCredentials: true})
+            if(res.data.success){
+                toast.success(res.data.message)
+            }
+            
+        } catch (error) {
+            toast.error(error.respnse.data.message);
+            console.log(error);
+            
+        }       
+    };
+
+
+    
+
     const applications = useSelector((state)=> state.applications.applicants)
-    console.log(applications.length);
 
 
     const dispatch = useDispatch();
@@ -39,33 +58,8 @@ const Applicants = () => {
 
     },[JobId, dispatch])
 
-//   // Static applicant data
-//   const applicants = [
-//     {
-//       id: 1,
-//       fullName: "John Doe",
-//       email: "john.doe@example.com",
-//       contact: "123-456-7890",
-//       resume: "john_resume.pdf",
-//       status: "Pending",
-//     },
-//     {
-//       id: 2,
-//       fullName: "Jane Smith",
-//       email: "jane.smith@example.com",
-//       contact: "987-654-3210",
-//       resume: "jane_resume.pdf",
-//       status: "Pending",
-//     },
-//     {
-//       id: 3,
-//       fullName: "Michael Johnson",
-//       email: "michael.johnson@example.com",
-//       contact: "456-789-1234",
-//       resume: "michael_resume.pdf",
-//       status: "Pending",
-//     },
-//   ];
+
+
 
 
   return (
@@ -85,9 +79,11 @@ const Applicants = () => {
           </thead>
           <tbody>
             {
-                applications.length < 0 ? (
+                applications.length <=0 ? (
                   
-                  <h1>No one is applied for this job yet....</h1>
+                  <tr className="text-center">
+                    <td>No one is applied for this job yet....</td>
+                  </tr>
                    
                 ):(
                     applications.map((user,index) => (  
@@ -96,14 +92,18 @@ const Applicants = () => {
                           <td className="px-6 py-4 border-b text-sm text-gray-700">{user?.applicant?.email}</td>
                           <td className="px-6 py-4 border-b text-sm text-gray-700">{user?.applicant?.phoneNumber}</td>
                           <td className="px-6 py-4 border-b text-sm text-blue-500 underline">
-                            <a href={`${user?.applicant?.profile?.resume}`} target="_blank" rel="noopener noreferrer">
-                              {user?.applicant?.profile?.resumeOriginalName}
-                            </a>
+                          {
+                            user?.applicant?.profile.resume ?  <a href={`${user?.applicant?.profile?.resume}`} target="_blank" rel="noopener noreferrer">
+                            {user?.applicant?.profile?.resumeOriginalName}
+                          </a> : <span>NA</span>
+                          }
+
                           </td>
                           <td className="px-6 py-4 border-b text-sm text-gray-700">{user?.applicant?.updatedAt.toString().split('T')[0]}</td>
                           <td className="px-6 py-4 border-b text-sm text-gray-700">
-                            <select
-                              defaultValue={user?.status}
+                            <select 
+                              onChange={(e)=>  HandleStatus(e.target.value,user?._id)}
+                              defaultValue={"pending"}  
                               className="border border-gray-300 rounded-md p-2 bg-white text-gray-700 focus:ring-2 focus:ring-blue-400"
                             >
                               <option value="Accepted">Accepted</option>
