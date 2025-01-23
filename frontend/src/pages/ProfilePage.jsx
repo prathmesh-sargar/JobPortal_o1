@@ -137,7 +137,7 @@ const ProfilePage = () => {
                   <td className="py-2 px-4 text-sm text-gray-600">{job?.job.title}</td>
                   <td className="py-2 px-4 text-sm text-gray-600">{job?.job.company.name}</td>
                   <td className="font-bold">
-                   <span className={`py-2 px-4 text-sm  ${job?.status == "accepted" ? "bg-green-300": "bg-red-300 "}  font-semibold rounded-xl`} > {job?.status}</span>
+                   <span className={`py-2 px-4 text-sm  ${job?.status == "accepted" ? "bg-green-300": job?.status == "pending" ? "bg-gray-300": "bg-red-300 "}  font-semibold rounded-xl`} > {job?.status == "accepted"? "Selected": job?.status == "pending"? "pending": "rejected"}</span>
                   </td>
                 </tr>
               ))}
