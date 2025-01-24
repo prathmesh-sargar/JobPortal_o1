@@ -32,7 +32,7 @@ const UpdateProfile = () => {
       formData.append("file", data?.resume[0]);
 
       const response = await axios.put(
-        "http://localhost:8000/api/v1/user/profile/update",
+        "https://job-portal-backend-ruby-ten.vercel.app/profile/update",
         formData,
         {withCredentials: true},
         {

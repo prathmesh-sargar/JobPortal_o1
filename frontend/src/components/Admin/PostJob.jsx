@@ -23,7 +23,7 @@ const PostJob = () => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/job/post",
+      const res = await axios.post("https://job-portal-backend-ruby-ten.vercel.app/post",
        data,{
         withCredentials: true,
       });

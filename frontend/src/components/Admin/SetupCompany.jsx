@@ -43,7 +43,7 @@ const SetupCompany = () => {
       
 
       const response = await axios.put(
-        `http://localhost:8000/api/v1/company/update/${companyId}`,
+        `https://job-portal-backend-ruby-ten.vercel.app/update/${companyId}`,
         formData,
         {withCredentials : true},
         {

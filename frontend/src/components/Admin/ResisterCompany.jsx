@@ -19,7 +19,7 @@ const ResisterCompany = () => {
       }
 
       const res = await axios.post(
-        "http://localhost:8000/api/v1/company/register",
+        "https://job-portal-backend-ruby-ten.vercel.app/register",
         data,
         { withCredentials: true }
       );
