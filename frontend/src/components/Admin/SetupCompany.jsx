@@ -11,11 +11,11 @@ const SetupCompany = () => {
   const params = useParams();
 
  const  companyId = params.id;
- console.log(companyId);
+
  
   const singleCompany = useSelector((state)=>state.company.singleCompany);
 
-  console.log("singlecom : ",singleCompany.name);
+  
   
 
   const {
@@ -28,7 +28,7 @@ const SetupCompany = () => {
 //   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    
 
     try {
       const formData = new FormData();
@@ -39,7 +39,7 @@ const SetupCompany = () => {
       formData.append("file", data?.logo[0]);
 
 
-      console.log("formdata", formData);
+      
       
 
       const response = await axios.put(

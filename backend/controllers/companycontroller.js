@@ -5,7 +5,7 @@ import getDatauri from "../utils/dataUri.js";
 export const registerCompany = async(req,res)=>{
     try {
         const {companyName}= req.body;
-        console.log("company :",companyName);
+      ]
         
         if(!companyName){
             return res.status(400).json({
@@ -95,12 +95,12 @@ export const updateCompany = async(req,res)=>{
         // cloudinary Ayyega idher : 
         const fileUri = getDatauri(file);
         const cloudresponse = await cloudinary.uploader.upload(fileUri.content);
-        console.log("company logo",cloudresponse.secure_url);
+     ]
 
         const logo = cloudresponse.secure_url;
 
         const updatedData = {name , location , website ,description,logo};
-        console.log("updated data : ",updatedData);
+     ]
         
         const company = await Company.findByIdAndUpdate(req.params.id,updatedData);
         if(!company){

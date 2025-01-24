@@ -9,7 +9,7 @@ export const register = async (req,res)=>{
     try {
 
         const {fullname , email, phoneNumber , password, role} = req.body;
-        console.log( fullname , email, phoneNumber , password, role );
+      
 
         const file = req.file;
         
@@ -154,14 +154,13 @@ export const updateProfile = async(req,res)=>{
         const {fullname, email, phoneNumber, bio , skills} = req.body;
         const file = req.file;
 
-        console.log(fullname, email, phoneNumber, bio , skills);
-        console.log(file);
+     ]
         
     
         // cloudnary Ayyega idher : 
         const fileUri = getDatauri(file);
         const cloudresponse = await cloudinary.uploader.upload(fileUri.content,{resource_type: "raw"});
-        console.log(cloudresponse.secure_url);
+      ]
         
 
          let skillsArray;

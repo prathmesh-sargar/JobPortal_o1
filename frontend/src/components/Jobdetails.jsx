@@ -10,7 +10,7 @@ const Jobdetails = () => {
 
     const params = useParams();
     const jobId = params.id;
-    // console.log(jobId);
+    
 
   const applyJobHandler = async()=>{
     try {

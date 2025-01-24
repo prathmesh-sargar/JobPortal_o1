@@ -43,7 +43,7 @@ const Applicants = () => {
                 {withCredentials: true});
                 if(res.data.success){
                     // console.log(res.data.job.applications[0].applicant.fullname);
-                    console.log(res.data.job.aaplications);
+                   
                     dispatch(setApplicants(res.data.job.applications));
                 }
                 

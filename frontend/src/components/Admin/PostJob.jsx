@@ -21,7 +21,7 @@ const PostJob = () => {
 
   // Handle form submission
   const onSubmit = async (data) => {
-    console.log(data);
+   
     try {
       const res = await axios.post("https://job-portal-backend-ruby-ten.vercel.app/post",
        data,{

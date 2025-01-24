@@ -19,7 +19,7 @@ const UpdateProfile = () => {
 
   const onSubmit = async (data) => {
 
-    console.log(data);
+    
 
     try {
       // fullname, email, phoneNumber, bio , skills

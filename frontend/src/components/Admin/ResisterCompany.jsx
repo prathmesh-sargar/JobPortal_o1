@@ -23,7 +23,7 @@ const ResisterCompany = () => {
         data,
         { withCredentials: true }
       );
-      console.log(res?.data?.company);
+      
       dispatch(getSingleCompany(res?.data?.company))
       // Add functionality to save the company
 

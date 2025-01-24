@@ -14,7 +14,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log(data);
+
     try {
       const formData = new FormData();
       formData.append("fullname", data.fullname);
