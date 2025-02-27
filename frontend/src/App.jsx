@@ -16,6 +16,8 @@ import SetupCompany from "./components/Admin/SetupCompany";
 import AdminJobs from "./components/Admin/Adminjobs";
 import PostJob from "./components/Admin/PostJob";
 import Applicants from "./components/Admin/Applicants";
+import Improve from "./components/Communication/Improve";
+import ATSResume from "./components/ATS_Resume/ATSResume"
 function App() {
 
   return (
@@ -32,6 +34,8 @@ function App() {
         <Route path="/profile" element={<ProfilePage/>}/>
         <Route path="/profile/update" element={<UpdateProfile/>}/>
         <Route path="jobs/description/:id" element={<Jobdetails/>}/>
+        <Route path="/communicate" element={<Improve/>}/>
+        <Route path="/ATS" element={<ATSResume/>}/>
         {/* admin */}
         <Route path="/admin/companies" element={<Companies/>}/>
         <Route path="/admin/jobs" element={<AdminJobs/>}/>

@@ -154,13 +154,13 @@ export const updateProfile = async(req,res)=>{
         const {fullname, email, phoneNumber, bio , skills} = req.body;
         const file = req.file;
 
-     ]
+   
         
     
         // cloudnary Ayyega idher : 
         const fileUri = getDatauri(file);
         const cloudresponse = await cloudinary.uploader.upload(fileUri.content,{resource_type: "raw"});
-      ]
+     
         
 
          let skillsArray;
